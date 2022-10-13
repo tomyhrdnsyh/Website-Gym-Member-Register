@@ -1,0 +1,1 @@
+web gunicorn gym.wsgi:application --log-file -
