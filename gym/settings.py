@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-z@378$ku)jzo!#p_n&f9k-r8ul)139e84c21!wg5pxbnut2=08'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -121,7 +121,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'assets', 'css'), 
     os.path.join(BASE_DIR, 'assets', 'js'), 
@@ -130,10 +130,9 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'assets', 'images', 'class'),
     os.path.join(BASE_DIR, 'assets', 'images', 'team'),
     ]
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-DISABLE_COLLECTSTATIC=1
