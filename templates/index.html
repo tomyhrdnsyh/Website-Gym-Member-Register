@@ -371,13 +371,10 @@
                         <h2 class="mb-4 pb-2" data-aos="fade-up" data-aos-delay="200">Feel free to ask anything</h2>
                         
                         
-                        <form action="#" method="post" class="contact-form webform" data-aos="fade-up" data-aos-delay="400" role="form">
+                        <form action="{% url 'homepage' %}" method="POST" class="contact-form webform" data-aos="fade-up" data-aos-delay="400" role="form">
                             {% csrf_token %}
-                            <input type="text" class="form-control" name="cf-name" placeholder="Name">
 
-                            <input type="email" class="form-control" name="cf-email" placeholder="Email">
-
-                            <textarea class="form-control" rows="5" name="cf-message" placeholder="Message"></textarea>
+                            {{ review_form }}
 
                             <button type="submit" class="form-control" id="submit-button" name="submit">Send Message</button>
                         </form>
@@ -442,16 +439,12 @@
           </div>
 
           <div class="modal-body">
-            <form class="membership-form webform" role="form">
-                <input type="text" class="form-control" name="cf-name" placeholder="John Doe">
+            <form class="membership-form webform" method="POST" role="form">
+                {% csrf_token %}
 
-                <input type="email" class="form-control" name="cf-email" placeholder="Johndoe@gmail.com">
+                {{ membership_form }}
 
-                <input type="tel" class="form-control" name="cf-phone" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
-
-                <textarea class="form-control" rows="3" name="cf-message" placeholder="Additional Message"></textarea>
-
-                <button type="submit" class="form-control" id="submit-button" name="submit">Submit Button</button>
+                <button type="submit" value="membership" class="form-control" id="submit-button" name="submit">Submit Button</button>
 
                 <div class="custom-control custom-checkbox">
                     <input type="checkbox" class="custom-control-input" id="signup-agree">
