@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .form import ReviewForms, MembershipForm
 from .models import Review
+from datetime import datetime
 import random
 
 
@@ -11,13 +12,16 @@ def dashboard(request):
     
     # return to database if request is post
     if request.POST:
-        to_database = MembershipForm(request.POST) if request.POST['submit'] else ReviewForms(request.POST)
-        # kode to_database adalah mengecek apakah POST dari form membership atau form reviews
+        # to_database adalah mengecek apakah POST dari form membership atau form reviews
+        to_database = MembershipForm(request.POST) if 'membership' in request.POST else ReviewForms(request.POST)
+
         if to_database.is_valid():
             to_database.save()
+
         return redirect('/')
 
     return render(request, 'index.html', {'review': review, 'review_form': ReviewForms, 'membership_form': MembershipForm})
+
 
 def custom(review: dict):
     img = ['cardio-class.jpg', 'crossfit-class.jpg', 'yoga-class.jpg']
