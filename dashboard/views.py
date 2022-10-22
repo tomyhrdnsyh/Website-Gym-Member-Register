@@ -4,10 +4,12 @@ from .models import Review, Instructor
 import random
 
 IMG_REVIEWS = ['cardio-class.jpg', 'team-image01.jpg', 'team-image.jpg', 'crossfit-class.jpg', 'yoga-class.jpg']
-IMG_INSTRUCTORS = ['gym-instructor-1.jpg','gym-instructor-2.jpg', 'gym-instructor-3.jpg', 'gym-instructor-4.jpeg']
+IMG_INSTRUCTORS = ['gym-instructor-1.jpg', 'gym-instructor-2.jpg', 'gym-instructor-3.jpg', 'gym-instructor-4.jpeg']
 
 
-def dashboard(request):
+def dashboard(request, html=None):
+    html = {'template': 'index.html'} if html is None else html
+
     # get data reviewers from database and view to template
     review = Review.objects.values()
     review = custom_template(review, IMG_REVIEWS, delay=400)
@@ -24,10 +26,15 @@ def dashboard(request):
         if to_database.is_valid():
             to_database.save()
 
-        return redirect('/')
+        return redirect(request.POST.get('next', '/'))
 
-    return render(request, 'index.html', {'review': review, 'instructors': instructor, 'review_form': ReviewForms,
-                                          'membership_form': MembershipForm})
+    return render(request, html['template'], {'review': review, 'instructors': instructor, 'review_form': ReviewForms,
+                                              'membership_form': MembershipForm})
+
+
+def dashboard_id(request):
+    html = {'template': 'index_id.html'}
+    return dashboard(request, html)
 
 
 def custom_template(params: dict, img: list, delay):
@@ -40,5 +47,3 @@ def custom_template(params: dict, img: list, delay):
             if len(item['message']) > 50:
                 item['message'] = item['message'][:50] + '...'
     return params
-
-
