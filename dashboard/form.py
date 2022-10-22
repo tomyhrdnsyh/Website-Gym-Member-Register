@@ -43,19 +43,20 @@ class MembershipForm(ModelForm):
 
     email = forms.EmailField(max_length=254, label=False, widget=forms.TextInput(
         attrs={'class': 'form-control',
-               'placeholder': 'Johndoe@gmail.com'}))
+               'placeholder': 'Johndoe@gmail.com',
+               'pattern': '^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$'}))
 
     phone = forms.CharField(max_length=100, label=False, widget=forms.TextInput(
         attrs={'class': 'form-control',
-               'placeholder': '123-456-7890',
-               'pattern': '[0-9]{3}-[0-9]{3}-[0-9]+'}))
+               'placeholder': '087788998887',
+               'pattern': '[0-9]\d{8,16}'}))
 
     program = forms.CharField(max_length=100, label=False, widget=forms.TextInput(
         attrs={'class': 'form-control',
                'placeholder': 'The program you choose',
                'data-toggle': 'tooltip',
                'title': 'Menaikan Berat Badan (Massa Otot) / Menurunkan Berat Badan / Lainnya.'
-                              '\nJika Memilih Lainya, Berikan Penjelasan'}))
+                        '\nJika Memilih Lainya, Berikan Penjelasan'}))
 
     disability_disease = forms.CharField(max_length=250, label=False, widget=forms.TextInput(
         attrs={'class': 'form-control',
