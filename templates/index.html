@@ -101,9 +101,9 @@
                 <div class="d-flex flex-column justify-content-center ml-lg-auto mr-lg-5 col-lg-5 col-md-6 col-12">
                     <h2 class="mb-3 text-white" data-aos="fade-up">New to the baginda?</h2>
 
-                    <h6 class="mb-4 text-white" data-aos="fade-up">Your membership is up to 2 months FREE ($62.50 per month)</h6>
+                    <h6 class="mb-4 text-white" data-aos="fade-up">Your membership IDR 80K per month, IDR 220K per three months, IDR 400K per six months</h6>
 
-                    <p data-aos="fade-up" data-aos-delay="200">kepo yaaaaaaaaaaaaaa <a rel="nofollow" href="#" target="_parent">Tommas Shelby</a> aku punya tebak tebakan, model rambut apa yang sehat hayyooooo wkwk</p>
+                    <p data-aos="fade-up" data-aos-delay="200">Get unlimited access to all of the Baginda Gym premiums and Instructors for free every day.</p>
 
                     <a href="#" class="btn custom-btn bg-color mt-3" data-aos="fade-up" data-aos-delay="300" data-toggle="modal" data-target="#membershipForm">Become a member today</a>
                 </div>
@@ -111,22 +111,15 @@
                 <div class="mr-lg-auto mt-3 col-lg-4 col-md-6 col-12">
                      <div class="about-working-hours">
                           <div>
+                              <h2 class="mb-4 text-white" data-aos="fade-up" data-aos-delay="500">Working hours</h2>
+                              <strong class="d-block" data-aos="fade-up" data-aos-delay="600">Saturday - Sunday : Closed</strong>
+                              <strong class="mt-3 d-block" data-aos="fade-up" data-aos-delay="700">Monday - Friday</strong>
+                              <p data-aos="fade-up" data-aos-delay="800">8:00 AM - 8:00 PM</p>
 
-                                <h2 class="mb-4 text-white" data-aos="fade-up" data-aos-delay="500">Working hours</h2>
-
-                               <strong class="d-block" data-aos="fade-up" data-aos-delay="600">Sunday : Closed</strong>
-
-                               <strong class="mt-3 d-block" data-aos="fade-up" data-aos-delay="700">Monday - Friday</strong>
-
-                                <p data-aos="fade-up" data-aos-delay="800">7:00 AM - 10:00 PM</p>
-
-                                <strong class="mt-3 d-block" data-aos="fade-up" data-aos-delay="700">Saturday</strong>
-
-                                <p data-aos="fade-up" data-aos-delay="800">6:00 AM - 4:00 PM</p>
-                               </div>
                           </div>
                      </div>
                 </div>
+            </div>
 
             </div>
         </div>
@@ -138,7 +131,7 @@
                <div class="container">
                     <div class="row">
 
-                            <div class="mt-lg-5 mb-lg-0 mb-4 col-lg-5 col-md-10 mx-auto col-12">
+                            <div class="mt-lg-5 mb-lg-5 mb-4 text-center col-lg-15 col-md-10 mx-auto col-12">
                                 <h2 class="mb-4" data-aos="fade-up" data-aos-delay="300">Hello, we are Baginda Gyms</h2>
 
                                 <p data-aos="fade-up" data-aos-delay="400">Baginda Gym strives to provide easy access to health and fitness for everyone by offering premium gym access to all locations of Baginda Gym, Unlimited classes every day at an affordable cost. Now, it's easier for anyone to be more fit together.</p>
@@ -146,42 +139,31 @@
                                 <p data-aos="fade-up" data-aos-delay="500">If you have any question regarding <a rel="nofollow" href="#home" target="_parent">Baginda Gym cabang Klaten</a>, you can <a rel="nofollow" href="#contact" target="_parent">contact us</a> immediately. Thank you.</p>
 
                             </div>
-
-                            <div class="ml-lg-auto col-lg-3 col-md-6 col-12" data-aos="fade-up" data-aos-delay="700">
-                                <div class="team-thumb">
-                                    <img src="{% static 'team-image.jpg' %}" class="img-fluid" alt="Trainer">
-
-                                    <div class="team-info d-flex flex-column">
-
-                                        <h3>Mary Yan</h3>
-                                        <span>Yoga Instructor</span>
-
-                                        <ul class="social-icon mt-3">
-                                            <li><a href="#" class="fa fa-twitter"></a></li>
-                                            <li><a href="#" class="fa fa-instagram"></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="mr-lg-auto mt-5 mt-lg-0 mt-md-0 col-lg-3 col-md-6 col-12" data-aos="fade-up" data-aos-delay="800">
-                                <div class="team-thumb">
-                                    <img src="{% static 'team-image01.jpg' %}" class="img-fluid" alt="Trainer">
-
-                                    <div class="team-info d-flex flex-column">
-
-                                        <h3>Catherina</h3>
-                                        <span>Body trainer</span>
-
-                                        <ul class="social-icon mt-3">
-                                            <li><a href="#" class="fa fa-instagram"></a></li>
-                                            <li><a href="#" class="fa fa-facebook"></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-
                     </div>
+                   <div class="row">
+                       <div class="col-lg-12 col-12 text-center mb-5">
+                           <h2 data-aos="fade-up" data-aos-delay="600">Our Instructors</h2>
+                       </div>
+                       {% for instructor in instructors %}
+                        <div class="mr-lg-auto mt-5 mt-lg-0 mt-md-0 col-lg-3 col-md-6 col-12" data-aos="fade-up" data-aos-delay="{{ instructor.delay }}">
+                            <div class="team-thumb">
+
+                                <img src="{% static instructor.image %}" class="img-fluid" alt="Trainer" >
+
+                                <div class="team-info d-flex flex-column">
+
+                                    <h7>{{ instructor.name }}</h7>
+                                    <span>Body Instructor</span>
+
+                                    <ul class="social-icon mt-3">
+                                        <li><a href="https://wa.me/{{ instructor.phone }}" class="fa fa-phone"></a></li>
+                                        <li><a href="#" class="fa fa-instagram"></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                       {% endfor %}
+                   </div>
                </div>
      </section>
 
@@ -198,7 +180,7 @@
                              </div>
                             
                             {% for person in review %}
-                            <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="{{ person.delay }}">
+                            <div class="mt-4 col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="{{ person.delay }}">
                                 <div class="class-thumb">
                                     <img src="{% static person.image %}" class="img-fluid" alt="Class">
 
@@ -214,38 +196,6 @@
                                 </div>
                             </div>
                             {% endfor %}
-
-                            <!-- <div class="mt-5 mt-lg-0 mt-md-0 col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="500">
-                                <div class="class-thumb">
-                                    <img src="{% static 'crossfit-class.jpg' %}" class="img-fluid" alt="Class">
-
-                                    <div class="class-info">
-                                        <h3 class="mb-1">Areobic</h3>
-
-                                        <span><strong>Trained by</strong> - Mary</span>
-
-                                        <span class="class-price">$66</span>
-
-                                        <p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="mt-5 mt-lg-0 col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="600">
-                                <div class="class-thumb">
-                                    <img src="{% static 'cardio-class.jpg' %}" class="img-fluid" alt="Class">
-
-                                    <div class="class-info">
-                                        <h3 class="mb-1">Cardio</h3>
-
-                                        <span><strong>Trained by</strong> - Cathe</span>
-
-                                        <span class="class-price">$75</span>
-
-                                        <p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing</p>
-                                    </div>
-                                </div>
-                            </div> -->
 
                     </div>
                </div>
@@ -273,84 +223,102 @@
                                          <th>Wed</th>
                                          <th>Thu</th>
                                          <th>Fri</th>
-                                         <th>Sat</th>
                                      </thead>
 
                                      <tbody>
                                          <tr>
-                                            <td><small>7:00 am</small></td>
+                                            <td><small>8:00 am</small></td>
                                             <td>
-                                                <strong>Cardio</strong>
-                                                <span>7:00 am - 9:00 am</span>
+                                                <strong>JOY</strong>
+                                                <span>8:00 am - 11:00 am</span>
                                             </td>
                                             <td>
-                                                <strong>Power Fitness</strong>
-                                                <span>7:00 am - 9:00 am</span>
-                                            </td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                                <strong>Yoga Section</strong>
-                                                <span>7:00 am - 9:00 am</span>
-                                            </td>
-                                         </tr>
-
-                                         <tr>
-                                            <td><small>9:00 am</small></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                                <strong>Boxing</strong>
-                                                <span>8:00 am - 9:00 am</span>
+                                                <strong>AXEL</strong>
+                                                <span>8:00 am - 11:00 am</span>
                                             </td>
                                             <td>
-                                                <strong>Areobic</strong>
-                                                <span>8:00 am - 9:00 am</span>
+                                                <strong>REYNAND</strong>
+                                                <span>8:00 am - 11:00 am</span>
                                             </td>
-                                            <td></td>
                                             <td>
-                                                <strong>Cardio</strong>
-                                                <span>8:00 am - 9:00 am</span>
+                                                <strong>AXEL</strong>
+                                                <span>8:00 am - 11:00 am</span>
+                                            </td>
+                                            <td>
+                                                <strong>DIAN</strong>
+                                                <span>8:00 am - 11:00 am</span>
                                             </td>
                                          </tr>
 
                                          <tr>
                                             <td><small>11:00 am</small></td>
-                                            <td></td>
                                             <td>
-                                                <strong>Boxing</strong>
-                                                <span>11:00 am - 2:00 pm</span>
+                                                <strong>DIAN</strong>
+                                                <span>11:00 am - 2:00 PM</span>
                                             </td>
                                             <td>
-                                                <strong>Areobic</strong>
-                                                <span>11:30 am - 3:30 pm</span>
+                                                <strong>JOY</strong>
+                                                <span>11:00 am - 2:00 PM</span>
                                             </td>
-                                            <td></td>
                                             <td>
-                                                <strong>Body work</strong>
-                                                <span>11:50 am - 5:20 pm</span>
+                                                <strong>JOY</strong>
+                                                <span>11:00 am - 2:00 PM</span>
+                                            </td>
+                                            <td>
+                                                <strong>REYNAND</strong>
+                                                <span>11:00 am - 2:00 PM</span>
+                                            </td>
+                                            <td>
+                                                <strong>JOY</strong>
+                                                <span>11:00 am - 2:00 PM</span>
                                             </td>
                                          </tr>
 
                                          <tr>
                                             <td><small>2:00 pm</small></td>
                                             <td>
-                                                <strong>Boxing</strong>
-                                                <span>2:00 pm - 4:00 pm</span>
+                                                <strong>AXEL</strong>
+                                                <span>2:00 pm - 5:00 pm</span>
                                             </td>
                                             <td>
-                                                <strong>Power lifting</strong>
-                                                <span>3:00 pm - 6:00 pm</span>
+                                                <strong>DIAN</strong>
+                                                <span>2:00 pm - 5:00 pm</span>
                                             </td>
-                                            <td></td>
                                             <td>
-                                                <strong>Cardio</strong>
-                                                <span>6:00 pm - 9:00 pm</span>
+                                                <strong>AXEL</strong>
+                                                <span>2:00 pm - 5:00 pm</span>
                                             </td>
-                                            <td></td>
                                             <td>
-                                                <strong>Crossfit</strong>
-                                                <span>5:00 pm - 7:00 pm</span>
+                                                <strong>JOY</strong>
+                                                <span>2:00 pm - 5:00 pm</span>
+                                            </td>
+                                            <td>
+                                                <strong>AXEL</strong>
+                                                <span>2:00 pm - 5:00 pm</span>
+                                            </td>
+                                         </tr>
+
+                                         <tr>
+                                            <td><small>5:00 pm</small></td>
+                                            <td>
+                                                <strong>REYNAND</strong>
+                                                <span>5:00 pm - 8:00 pm</span>
+                                            </td>
+                                            <td>
+                                                <strong>REYNAND</strong>
+                                                <span>5:00 pm - 8:00 pm</span>
+                                            </td>
+                                            <td>
+                                                <strong>DIAN</strong>
+                                                <span>5:00 pm - 8:00 pm</span>
+                                            </td>
+                                            <td>
+                                                <strong>DIAN</strong>
+                                                <span>5:00 pm - 8:00 pm</span>
+                                            </td>
+                                            <td>
+                                                <strong>REYNAND</strong>
+                                                <span>5:00 pm - 8:00 pm</span>
                                             </td>
                                          </tr>
                                      </tbody>
@@ -368,7 +336,7 @@
                <div class="row">
 
                     <div class="ml-auto col-lg-5 col-md-6 col-12">
-                        <h2 class="mb-4 pb-2" data-aos="fade-up" data-aos-delay="200">Feel free to ask anything</h2>
+                        <h2 class="mb-4 pb-2" data-aos="fade-up" data-aos-delay="200">Feel free to ask or comment anything</h2>
                         
                         
                         <form action="{% url 'homepage' %}" method="POST" class="contact-form webform" data-aos="fade-up" data-aos-delay="400" role="form">
@@ -384,12 +352,7 @@
                         <h2 class="mb-4" data-aos="fade-up" data-aos-delay="600">Where you can <span>find us</span></h2>
 
                         <p data-aos="fade-up" data-aos-delay="800"><i class="fa fa-map-marker mr-1"></i> Jl. Sersan Sadikin, Badegan, Gergunung, Kec. Klaten Utara, Kabupaten Klaten, Jawa Tengah 57435</p>
-<!-- How to change your own map point
-	1. Go to Google Maps
-	2. Click on your location point
-	3. Click "Share" and choose "Embed map" tab
-	4. Copy only URL and paste it within the src="" field below
--->
+
                         <div class="google-map" data-aos="fade-up" data-aos-delay="900">
                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3953.9868260364256!2d110.6117185147774!3d-7.684561494460252!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a43e1754f79ed%3A0xf46a9041f26bde4d!2sBAGINDA%20GYM%20Cabang%20KLATEN!5e0!3m2!1sid!2sid!4v1665585051629!5m2!1sid!2sid" width="1920" height="250" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
                         </div>
@@ -461,6 +424,12 @@
     </div>
 
      <!-- SCRIPTS -->
+
+    <script>
+        $('.carousel').carousel({
+          interval: 2000
+        })
+    </script>
      <script src="{% static 'jquery.min.js' %}"></script>
      <script src="{% static 'bootstrap.min.js' %}"></script>
      <script src="{% static 'aos.js' %}"></script>

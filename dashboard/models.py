@@ -27,3 +27,14 @@ class Membership(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+
+class Instructor(models.Model):
+    name = models.CharField(max_length=100)
+    address = models.CharField(max_length=250)
+    birth = models.CharField(max_length=250)
+    phone = models.CharField(max_length=20)
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return self.name
