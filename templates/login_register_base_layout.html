@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Login</title>
+    <title>Login - Register</title>
 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,10 +23,18 @@
         <div class="bg-overlay"></div>
 
         <div class="container">
+
             <div class="row">
+                {% if messages %}
+                    {% for message in messages %}
+                        <dic class="alert alert-{{ message.tags }} m-2 col-md-10 mx-auto" id="msg", role="alert">
+                            {{ message }}
+                        </dic>
+                    {% endfor %}
+                {% endif %}
                 <div class="col-md-10 mx-auto mt-5 mb-5 bg-white rounded" data-aos="fade-up" data-aos-delay="300">
                     <div class="row">
-                        
+
                         {% block content %}
                         
                         {% endblock %}
@@ -37,8 +45,14 @@
         </div>
     </section>
 
+    <script>
+        setTimeout(function (){
+            if ($('#msg').length > 0) {
+                $('#msg').remove();
+            }
+        }, 3000)
+    </script>
 
-    <!-- SCRIPTS -->
     <script src="{% static 'jquery.min.js' %}"></script>
     <script src="{% static 'bootstrap.min.js' %}"></script>
     <script src="{% static 'aos.js' %}"></script>

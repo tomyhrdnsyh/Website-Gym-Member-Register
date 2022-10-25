@@ -1,4 +1,6 @@
 from django.forms import ModelForm
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from django import forms
 from .models import Review, Membership
 
@@ -81,3 +83,27 @@ class MembershipForm(ModelForm):
         fields = ['name', 'birthplace', 'birthdate',
                   'address', 'email', 'phone', 'program',
                   'disability_disease', 'gym_information', 'message']
+
+
+class CreateUserForm(UserCreationForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.label_suffix = ""
+
+    username = forms.CharField(max_length=150, widget=forms.TextInput(
+        attrs={'class': 'form-control',
+               'placeholder': 'johndoe'}))
+    email = forms.EmailField(max_length=254, widget=forms.TextInput(
+        attrs={'class': 'form-control',
+               'placeholder': 'Johndoe@gmail.com',
+               'pattern': '^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$'}))
+    password1 = forms.CharField(label='Password',
+                                widget=forms.PasswordInput(attrs={'class': 'form-control',
+                                                                  'placeholder': '********'}))
+    password2 = forms.CharField(label='Confirm Password',
+                                widget=forms.PasswordInput(attrs={'class': 'form-control',
+                                                                  'placeholder': '********'}))
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']

@@ -1,10 +1,15 @@
 from django.shortcuts import render, redirect
-from .form import ReviewForms, MembershipForm
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from .form import ReviewForms, MembershipForm, CreateUserForm
 from .models import Review, Instructor
 import random
 
 IMG_REVIEWS = ['cardio-class.jpg', 'team-image01.jpg', 'team-image.jpg', 'crossfit-class.jpg', 'yoga-class.jpg']
 IMG_INSTRUCTORS = ['gym-instructor-1.jpg', 'gym-instructor-2.jpg', 'gym-instructor-3.jpg', 'gym-instructor-4.jpeg']
+
 
 def custom_template(params: dict, img: list, delay):
     for i, item in enumerate(params):
@@ -18,6 +23,7 @@ def custom_template(params: dict, img: list, delay):
     return params
 
 
+@login_required(login_url='login')
 def dashboard(request, html=None):
     html = {'template': 'index.html'} if html is None else html
 
@@ -39,18 +45,56 @@ def dashboard(request, html=None):
 
         return redirect(request.POST.get('next', '/'))
 
-    return render(request, html['template'], {'review': review, 'instructors': instructor, 'review_form': ReviewForms,
-                                              'membership_form': MembershipForm})
+    context = {'review': review, 'instructors': instructor,
+               'review_form': ReviewForms,
+               'membership_form': MembershipForm}
+    return render(request, html['template'], context)
 
 
+@login_required(login_url='login')
 def dashboard_id(request):
     html = {'template': 'index_id.html'}
     return dashboard(request, html)
 
 
-def login(request):
-    return render(request, 'login.html')
+def login_page(request):
+    form = UserCreationForm()
+
+    if request.POST:
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('homepage_id')
+        else:
+            messages.info(request, 'Username or Password is incorrect')
+    context = {'login': form}
+    return render(request, 'login.html', context)
 
 
-def register(request):
-    return render(request, 'register.html')
+def register_page(request):
+    form = CreateUserForm()
+
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            user = form.cleaned_data.get('username')
+            messages.success(request, 'Account was created for' + user)
+            return redirect('/login')
+        else:
+            messages.warning(request, 'Register Failed!')
+            return redirect('/register')
+
+    context = {'register': form}
+    return render(request, 'register.html', context)
+
+
+def logout_user(request):
+    logout(request)
+    response = redirect('login')
+    response.delete_cookie()
+    return response

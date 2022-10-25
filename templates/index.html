@@ -24,7 +24,7 @@
 
     <!-- MENU BAR -->
     <nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container">
+        <div class="container-fluid">
 
             <a class="navbar-brand" href="#home">Baginda Gyms</a>
 
@@ -64,6 +64,10 @@
 
                 <ul class="social-icon ml-lg-3">
                     <li><a href="/id/" class="fa fa-globe" data-toggle="tooltip" title="switch to Indonesian"></a></li>
+                </ul>
+
+                <ul class="navbar-nav ml-lg-auto">
+                    <li class="text-white">Hello, {{ request.user }} <a href="{% url 'logout' %}">Log Out</a></li>
                 </ul>
             </div>
 
