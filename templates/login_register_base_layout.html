@@ -1,0 +1,49 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'aos.css' %}">
+    
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="{% static 'tooplate-gymso-style.css' %}">
+    
+</head>
+<body data-spy="scroll" data-target="#navbarNav" data-offset="50">
+
+    <section class="hero d-flex flex-column min-vh-100 justify-content-center align-items-center" id="login">
+        <div class="bg-overlay"></div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 mx-auto mt-5 mb-5 bg-white rounded" data-aos="fade-up" data-aos-delay="300">
+                    <div class="row">
+                        
+                        {% block content %}
+                        
+                        {% endblock %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SCRIPTS -->
+    <script src="{% static 'jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap.min.js' %}"></script>
+    <script src="{% static 'aos.js' %}"></script>
+    <script src="{% static 'smoothscroll.js' %}"></script>
+    <script src="{% static 'custom.js' %}"></script>
+
+</body>
+</html>
