@@ -6,6 +6,17 @@ import random
 IMG_REVIEWS = ['cardio-class.jpg', 'team-image01.jpg', 'team-image.jpg', 'crossfit-class.jpg', 'yoga-class.jpg']
 IMG_INSTRUCTORS = ['gym-instructor-1.jpg', 'gym-instructor-2.jpg', 'gym-instructor-3.jpg', 'gym-instructor-4.jpeg']
 
+def custom_template(params: dict, img: list, delay):
+    for i, item in enumerate(params):
+        item['name'] = ' '.join(item['name'].split()[:2])
+        item['delay'] = delay + i * 100
+        item['image'] = img[i] if i < len(img) else random.choice(img)
+
+        if item.get('message'):
+            if len(item['message']) > 50:
+                item['message'] = item['message'][:50] + '...'
+    return params
+
 
 def dashboard(request, html=None):
     html = {'template': 'index.html'} if html is None else html
@@ -37,13 +48,9 @@ def dashboard_id(request):
     return dashboard(request, html)
 
 
-def custom_template(params: dict, img: list, delay):
-    for i, item in enumerate(params):
-        item['name'] = ' '.join(item['name'].split()[:2])
-        item['delay'] = delay + i * 100
-        item['image'] = img[i] if i < len(img) else random.choice(img)
+def login(request):
+    return render(request, 'login.html')
 
-        if item.get('message'):
-            if len(item['message']) > 50:
-                item['message'] = item['message'][:50] + '...'
-    return params
+
+def register(request):
+    return render(request, 'register.html')
