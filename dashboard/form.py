@@ -99,10 +99,12 @@ class CreateUserForm(UserCreationForm):
                'pattern': '^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$'}))
     password1 = forms.CharField(label='Password',
                                 widget=forms.PasswordInput(attrs={'class': 'form-control',
-                                                                  'placeholder': '********'}))
+                                                                  'placeholder': '********',
+                                                                  'pattern': '^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$'}))
     password2 = forms.CharField(label='Confirm Password',
                                 widget=forms.PasswordInput(attrs={'class': 'form-control',
-                                                                  'placeholder': '********'}))
+                                                                  'placeholder': '********',
+                                                                  'pattern': '^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$'}))
 
     class Meta:
         model = User
