@@ -24,6 +24,7 @@ class Membership(models.Model):
     program = models.CharField(null=True, max_length=100)
     disability_disease = models.CharField(null=True, max_length=100)
     gym_information = models.CharField(null=True, max_length=100)
+    member_class = models.CharField(null=True, max_length=254)
     message = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
 

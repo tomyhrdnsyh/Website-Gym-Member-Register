@@ -1,3 +1,4 @@
+from secrets import choice
 from urllib import request
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
@@ -55,12 +56,16 @@ class MembershipForm(ModelForm):
                'placeholder': '087788998887',
                'pattern': '[0-9]\d{8,16}'}))
 
-    program = forms.CharField(max_length=100, label=False, widget=forms.TextInput(
+    PROGRAM_CHOICE = [
+        ('the program', 'The Program'),
+        ('gain weight', 'Gain weight'),
+        ('lose weight', 'Lose weight'),
+        ('other', 'Other')
+    ]
+    program = forms.CharField(max_length=100, label=False, widget=forms.Select(
         attrs={'class': 'form-control',
-               'placeholder': 'The program you choose',
-               'data-toggle': 'tooltip',
-               'title': 'Menaikan Berat Badan (Massa Otot) / Menurunkan Berat Badan / Lainnya.'
-                        '\nJika Memilih Lainya, Berikan Penjelasan'}))
+               'placeholder': 'The Program'}, 
+        choices=PROGRAM_CHOICE))
 
     disability_disease = forms.CharField(max_length=250, label=False, widget=forms.TextInput(
         attrs={'class': 'form-control',
