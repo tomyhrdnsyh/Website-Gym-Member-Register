@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 # Create your models here.
@@ -13,6 +14,7 @@ class Review(models.Model):
 
 
 class Membership(models.Model):
+    user_account = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     birthplace = models.CharField(null=True, max_length=100)
     birthdate = models.DateField(null=True)

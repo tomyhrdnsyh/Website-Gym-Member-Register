@@ -1,3 +1,4 @@
+from urllib import request
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -19,6 +20,7 @@ class ReviewForms(ModelForm):
 
 
 class MembershipForm(ModelForm):
+    
     name = forms.CharField(max_length=100, label=False, widget=forms.TextInput(
         attrs={'class': 'form-control',
                'placeholder': 'John Doe',

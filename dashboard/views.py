@@ -23,7 +23,6 @@ def custom_template(params: dict, img: list, delay):
     return params
 
 
-@login_required(login_url='login')
 def dashboard(request, html=None):
     html = {'template': 'index.html'} if html is None else html
 
@@ -39,8 +38,12 @@ def dashboard(request, html=None):
     if request.POST:
         # to_database adalah mengecek apakah POST dari form membership atau form reviews
         to_database = MembershipForm(request.POST) if 'membership' in request.POST else ReviewForms(request.POST)
+        # print(request.user)
 
         if to_database.is_valid():
+            to_database.instance.user_account = request.user
+            # print(to_database)
+            # print(type(to_database))
             to_database.save()
 
         return redirect(request.POST.get('next', '/'))
@@ -51,7 +54,6 @@ def dashboard(request, html=None):
     return render(request, html['template'], context)
 
 
-@login_required(login_url='login')
 def dashboard_id(request):
     html = {'template': 'index_id.html'}
     return dashboard(request, html)

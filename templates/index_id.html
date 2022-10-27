@@ -68,7 +68,11 @@
                 </ul>
 
                 <ul class="navbar-nav ml-lg-auto">
+                    {% if request.user.is_authenticated %}
                     <li class="text-white">Hello, {{ request.user }} <a href="{% url 'logout' %}">Log Out</a></li>
+                    {% else %}
+                    <li class="text-white">Hello, {{ request.user }}</li>
+                    {% endif %}
                 </ul>
             </div>
 
@@ -113,8 +117,11 @@
                     <h6 class="mb-4 text-white" data-aos="fade-up">Harga member mulai Rp 80 ribu per bulan, Rp 220 ribu per tiga bulan, Rp 400 ribu per enam bulan</h6>
 
                     <p data-aos="fade-up" data-aos-delay="200">Dapatkan akses tak terbatas ke semua Instruktur Baginda Gym gratis setiap hari.</p>
-
-                    <a href="#" class="btn custom-btn bg-color mt-3" data-aos="fade-up" data-aos-delay="300" data-toggle="modal" data-target="#membershipForm">Menjadi anggota hari ini</a>
+                    {% if request.user.is_authenticated %}
+                        <a href="#" class="btn custom-btn bg-color mt-3" data-aos="fade-up" data-aos-delay="300" data-toggle="modal" data-target="#membershipForm">Menjadi anggota hari ini</a>
+                    {% else %}
+                        <a href="/login" class="btn custom-btn bg-color mt-3" data-aos="fade-up" data-aos-delay="300">Log In dulu baru member</a>
+                    {% endif %}
                 </div>
 
                 <div class="mr-lg-auto mt-3 col-lg-4 col-md-6 col-12">
@@ -415,6 +422,7 @@
 
           <div class="modal-body">
             <form class="membership-form webform" method="POST" role="form">
+                
                 {% csrf_token %}
 
                 {{ membership_form }}
