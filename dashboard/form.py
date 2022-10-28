@@ -1,3 +1,5 @@
+from secrets import choice
+from urllib import request
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -19,6 +21,7 @@ class ReviewForms(ModelForm):
 
 
 class MembershipForm(ModelForm):
+    
     name = forms.CharField(max_length=100, label=False, widget=forms.TextInput(
         attrs={'class': 'form-control',
                'placeholder': 'John Doe',
@@ -32,7 +35,8 @@ class MembershipForm(ModelForm):
                'title': 'Tempat Lahir'}))
 
     birthdate = forms.CharField(label=False, widget=forms.widgets.DateTimeInput(
-        attrs={"type": "date",
+        attrs={'placeholder': 'Birthdate',
+               'type': 'date',
                'class': 'form-control',
                'data-toggle': 'tooltip',
                'title': 'Tanggal Lahir'}))
@@ -53,18 +57,25 @@ class MembershipForm(ModelForm):
                'placeholder': '087788998887',
                'pattern': '[0-9]\d{8,16}'}))
 
-    program = forms.CharField(max_length=100, label=False, widget=forms.TextInput(
-        attrs={'class': 'form-control',
-               'placeholder': 'The program you choose',
-               'data-toggle': 'tooltip',
-               'title': 'Menaikan Berat Badan (Massa Otot) / Menurunkan Berat Badan / Lainnya.'
-                        '\nJika Memilih Lainya, Berikan Penjelasan'}))
+    MEMBER_CLASS_CHOICE = [
+        (None, 'Member class?'),
+        (1, 'One Month (80k)'),
+        (3, 'Three Months (220k)'),
+        (6, 'Six Months (400k)'),
+    ]
+    member_class = forms.CharField(max_length=100, label=False, widget=forms.Select(
+        attrs={'class': 'form-control', }, 
+        choices=MEMBER_CLASS_CHOICE))
 
-    disability_disease = forms.CharField(max_length=250, label=False, widget=forms.TextInput(
-        attrs={'class': 'form-control',
-               'placeholder': 'Do you have a disability?',
-               'data-toggle': 'tooltip',
-               'title': 'Ya / Tidak. \nJika memilih Ya, berikan penjelasan'}))
+    PROGRAM_CHOICE = [
+        ('the program', 'The program you choose?'),
+        ('gain weight', 'Gain Weight'),
+        ('lose weight', 'Lose Weight'),
+        ('other', 'Other')
+    ]
+    program = forms.CharField(max_length=100, label=False, widget=forms.Select(
+        attrs={'class': 'form-control', }, 
+        choices=PROGRAM_CHOICE))
 
     gym_information = forms.CharField(max_length=250, label=False, widget=forms.TextInput(
         attrs={'class': 'form-control',
@@ -81,10 +92,31 @@ class MembershipForm(ModelForm):
         attrs={'class': 'form-control', 'placeholder': 'Select your class member'},
         choices=MEMBERSHIP_CHOICE))
 
-    message = forms.CharField(label=False, widget=forms.Textarea(
+    DISABILITY_CHOICE = [
+        ('disability question', 'Do you have a disability?'),
+        ('yes', 'Yes'),
+        ('no', 'No')
+    ]
+    disability_disease = forms.CharField(max_length=100, label=False, widget=forms.Select(
+        attrs={'class': 'form-control', }, 
+        choices=DISABILITY_CHOICE))
+
+    GYM_INFORMATION_CHOICE = [
+        ('gym information', 'How did you know Baginda Gym?'),
+        ('recomendation', 'Recomendation'),
+        ('billboard', 'Billboard'),
+        ('social media', 'Social Media'),
+        ('other', 'Other'),
+    ]
+    gym_information = forms.CharField(max_length=100, label=False, widget=forms.Select(
+        attrs={'class': 'form-control', }, 
+        choices=GYM_INFORMATION_CHOICE))
+
+    message = forms.CharField(label=False, required=False, widget=forms.Textarea(
         attrs={'class': 'form-control',
-               'placeholder': 'Additional Message',
-               'rows': '3'}))
+               'placeholder': 'If you choose "Yes" on disability field or '
+                              '"Other" in the other fields please explain here',
+               'rows': '5'}))
 
     class Meta:
         model = Membership
