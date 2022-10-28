@@ -80,6 +80,7 @@
                     <li><a href="{% url 'logout' %}">Log Out</a></li>
                     {% else %}
                     <li class="text-white">Hello, {{ request.user }}</li>
+                    <li><a href="{% url 'login' %}">Log In</a></li>
                     {% endif %}
                 </ul>
             </div>

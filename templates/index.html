@@ -74,9 +74,11 @@
 
                 <ul class="navbar-nav ml-lg-auto">
                     {% if request.user.is_authenticated %}
-                    <li class="text-white">Hello, {{ request.user }} <a href="{% url 'logout' %}">Log Out</a></li>
+                    <li class="text-white">Hello, {{ request.user }}</li>
+                    <li><a href="{% url 'logout' %}">Log Out</a></li>
                     {% else %}
                     <li class="text-white">Hello, {{ request.user }}</li>
+                    <li><a href="{% url 'login' %}">Log In</a></li>
                     {% endif %}
                 </ul>
             </div>
