@@ -72,6 +72,14 @@ class MembershipForm(ModelForm):
                'data-toggle': 'tooltip',
                'title': 'Rekomendasi / Papan Iklan / Sosial Media / Lainnya. '
                         '\nJika Memilih Lainnya, Berikan Penjelasan'}))
+    MEMBERSHIP_CHOICE = [
+        ('one_month', '80K per month'),
+        ('three_months', '220K per three months'),
+        ('six_months', '400K per six months'),
+    ]
+    member_class = forms.CharField(label=False, widget=forms.Select(
+        attrs={'class': 'form-control', 'placeholder': 'Select your class member'},
+        choices=MEMBERSHIP_CHOICE))
 
     message = forms.CharField(label=False, widget=forms.Textarea(
         attrs={'class': 'form-control',
@@ -82,13 +90,15 @@ class MembershipForm(ModelForm):
         model = Membership
         fields = ['name', 'birthplace', 'birthdate',
                   'address', 'email', 'phone', 'program',
-                  'disability_disease', 'gym_information', 'message']
+                  'disability_disease', 'gym_information', 'member_class', 'message']
 
 
 class CreateUserForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.label_suffix = ""
+
+    pattern = '^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$'
 
     username = forms.CharField(max_length=150, widget=forms.TextInput(
         attrs={'class': 'form-control',
@@ -100,11 +110,11 @@ class CreateUserForm(UserCreationForm):
     password1 = forms.CharField(label='Password',
                                 widget=forms.PasswordInput(attrs={'class': 'form-control',
                                                                   'placeholder': '********',
-                                                                  'pattern': '^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$'}))
+                                                                  'pattern': pattern}))
     password2 = forms.CharField(label='Confirm Password',
                                 widget=forms.PasswordInput(attrs={'class': 'form-control',
                                                                   'placeholder': '********',
-                                                                  'pattern': '^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$'}))
+                                                                  'pattern': pattern}))
 
     class Meta:
         model = User
