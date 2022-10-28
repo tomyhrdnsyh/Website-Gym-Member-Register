@@ -35,7 +35,7 @@ def dashboard(request, html=None):
 
     # get data instructor from database and view to template
     instructor = Instructor.objects.values()
-    instructor = custom_template(instructor, IMG_INSTRUCTORS, delay=700)
+    instructor = custom_template(instructor, IMG_INSTRUCTORS, delay=400)
 
     # return to database if request is post
     if request.POST:
@@ -61,9 +61,8 @@ def dashboard(request, html=None):
 
     # if user is login get data membership status from database and view to template
     if request.user.is_authenticated:
-        membership_status = Membership.objects.filter(user_account=request.user)
-        context['membership_status'] = membership_status
-
+        context['membership_status'] = Membership.objects.filter(user_account=request.user)
+        
     return render(request, html['template'], context)
 
 

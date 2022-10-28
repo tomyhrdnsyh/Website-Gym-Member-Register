@@ -68,30 +68,30 @@ class MembershipForm(ModelForm):
         choices=MEMBER_CLASS_CHOICE))
 
     PROGRAM_CHOICE = [
-        ('the program', 'The program you choose?'),
-        ('gain weight', 'Gain Weight'),
-        ('lose weight', 'Lose Weight'),
-        ('other', 'Other')
+        (None, 'The program you choose?'),
+        ('Gain Weight', 'Gain Weight'),
+        ('Lose Weight', 'Lose Weight'),
+        ('Other', 'Other')
     ]
     program = forms.CharField(max_length=100, label=False, widget=forms.Select(
         attrs={'class': 'form-control', }, 
         choices=PROGRAM_CHOICE))
 
     DISABILITY_CHOICE = [
-        ('disability question', 'Do you have a disability?'),
-        ('yes', 'Yes'),
-        ('no', 'No')
+        (None, 'Do you have a disability?'),
+        ('Yes', 'Yes'),
+        ('No', 'No')
     ]
     disability_disease = forms.CharField(max_length=100, label=False, widget=forms.Select(
         attrs={'class': 'form-control', }, 
         choices=DISABILITY_CHOICE))
 
     GYM_INFORMATION_CHOICE = [
-        ('gym information', 'How did you know Baginda Gym?'),
-        ('recomendation', 'Recomendation'),
-        ('billboard', 'Billboard'),
-        ('social media', 'Social Media'),
-        ('other', 'Other'),
+        (None, 'How did you know Baginda Gym?'),
+        ('Recommendation', 'Recommendation'),
+        ('Billboard', 'Billboard'),
+        ('Social Media', 'Social Media'),
+        ('Other', 'Other'),
     ]
     gym_information = forms.CharField(max_length=100, label=False, widget=forms.Select(
         attrs={'class': 'form-control', }, 
