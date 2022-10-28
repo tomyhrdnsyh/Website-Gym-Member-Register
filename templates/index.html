@@ -54,6 +54,12 @@
                     <li class="nav-item">
                         <a href="#contact" class="nav-link smoothScroll">Contact</a>
                     </li>
+
+                    {% if request.user.is_authenticated %}
+                    <li class="nav-item">
+                        <a href="#" data-target="#membershipStatus" data-toggle="modal" class="nav-link smoothScroll">Status</a>
+                    </li>
+                    {% endif %}
                 </ul>
 
                 <ul class="social-icon ml-lg-3">
@@ -439,6 +445,74 @@
         </div>
       </div>
     </div>
+
+
+     <!-- MODAL MEMBER STATUS -->
+
+    <div class="modal fade" id="membershipStatus" tabindex="-1" role="dialog" aria-labelledby="membershipStatusLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+
+          <div class="modal-content">
+            <div class="modal-header">
+
+              <h3 class="modal-title" id="membershipStatusLabel">Membership Information</h3>
+
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <div class="modal-body">
+                  {% for status in membership_status %}
+                  <table class="mt-4">
+
+                      <tbody class=" table table-borderless ">
+                      <tr>
+                          <th scope="row">Full Name</th>
+                          <th scope="row">{{ status.name }}</th>
+                      </tr>
+                      <tr>
+                          <td>Birthplace</td>
+                          <td>{{ status.birthplace }}</td>
+                      </tr>
+                      <tr>
+                          <td>Birthdate</td>
+                          <td>{{ status.birthdate }}</td>
+                      </tr>
+                      <tr>
+                          <td>Address</td>
+                          <td>{{ status.address }}</td>
+                      </tr>
+                      <tr>
+                          <td>Program</td>
+                          <td>{{ status.program }}</td>
+                      </tr>
+                      <tr>
+                          <td>Member Class</td>
+                          <td>{{ status.member_class }} Months</td>
+                      </tr>
+                      <tr>
+                          <td>Payment Status</td>
+                          <td>{{ status.payment_status }}</td>
+                      </tr>
+                      <tr>
+                          <td>Start</td>
+                          <td>{{ status.start }}</td>
+                      </tr>
+                      <tr>
+                          <td>End</td>
+                          <td>{{ status.end }}</td>
+                      </tr>
+                      </tbody>
+                  </table>
+                  {% endfor %}
+            </div>
+
+            <div class="modal-footer"></div>
+
+          </div>
+        </div>
+      </div>
 
      <!-- SCRIPTS -->
      <script src="{% static 'jquery.min.js' %}"></script>

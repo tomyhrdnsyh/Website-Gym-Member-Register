@@ -37,9 +37,6 @@ def dashboard(request, html=None):
     instructor = Instructor.objects.values()
     instructor = custom_template(instructor, IMG_INSTRUCTORS, delay=700)
 
-    # get data membership status from database and view to template
-    membership_status = Membership.objects.all()
-
     # return to database if request is post
     if request.POST:
         # to_database adalah mengecek apakah POST dari form membership atau form reviews
@@ -59,8 +56,13 @@ def dashboard(request, html=None):
         return redirect(request.POST.get('next', '/'))
 
     context = {'review': review, 'instructors': instructor,
-               'review_form': ReviewForms, 'membership_status': membership_status,
+               'review_form': ReviewForms,
                'membership_form': MembershipForm}
+
+    # if user is login get data membership status from database and view to template
+    if request.user.is_authenticated:
+        membership_status = Membership.objects.filter(user_account=request.user)
+        context['membership_status'] = membership_status
 
     return render(request, html['template'], context)
 
