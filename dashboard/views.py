@@ -4,8 +4,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .form import ReviewForms, MembershipForm, CreateUserForm
-from .models import Review, Instructor
+from .models import Review, Instructor, Membership
+from dateutil.relativedelta import relativedelta
+from datetime import date
 import random
+
 
 IMG_REVIEWS = ['cardio-class.jpg', 'team-image01.jpg', 'team-image.jpg', 'crossfit-class.jpg', 'yoga-class.jpg']
 IMG_INSTRUCTORS = ['gym-instructor-1.jpg', 'gym-instructor-2.jpg', 'gym-instructor-3.jpg', 'gym-instructor-4.jpeg']
@@ -34,23 +37,31 @@ def dashboard(request, html=None):
     instructor = Instructor.objects.values()
     instructor = custom_template(instructor, IMG_INSTRUCTORS, delay=700)
 
+    # get data membership status from database and view to template
+    membership_status = Membership.objects.all()
+
     # return to database if request is post
     if request.POST:
         # to_database adalah mengecek apakah POST dari form membership atau form reviews
-        to_database = MembershipForm(request.POST) if 'membership' in request.POST else ReviewForms(request.POST)
-        # print(request.user)
-
-        if to_database.is_valid():
-            to_database.instance.user_account = request.user
-            # print(to_database)
-            # print(type(to_database))
-            to_database.save()
-
+        if 'membership' in request.POST: 
+            to_database = MembershipForm(request.POST) 
+            if to_database.is_valid():
+                to_database.instance.user_account = request.user
+                to_database.instance.start = date.today()
+                to_database.instance.end = date.today() + relativedelta(months=+int(request.POST['member_class']))
+                to_database.save()
+        
+        else:
+            to_database = ReviewForms(request.POST)
+            if to_database.is_valid():
+                to_database.save()
+        
         return redirect(request.POST.get('next', '/'))
 
     context = {'review': review, 'instructors': instructor,
-               'review_form': ReviewForms,
+               'review_form': ReviewForms, 'membership_status': membership_status,
                'membership_form': MembershipForm}
+
     return render(request, html['template'], context)
 
 

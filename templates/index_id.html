@@ -55,6 +55,13 @@
                         <a href="#contact" class="nav-link smoothScroll">Contact</a>
                     </li>
 
+                    {% if request.user.is_authenticated %}
+                    <li class="nav-item">
+                        <a href="#" data-target="#membershipStatus" data-toggle="modal" class="nav-link smoothScroll">Status</a>
+                    </li>
+                    {% endif %}
+                    
+
                 </ul>
 
                 <ul class="social-icon ml-lg-3">
@@ -67,9 +74,10 @@
                     <li><a href="/" class="fa fa-globe" data-toggle="tooltip" title="Beralih ke bahasa Inggris"></a></li>
                 </ul>
 
-                <ul class="navbar-nav ml-lg-auto">
+                <ul class="navbar-nav ml-lg-auto ">
                     {% if request.user.is_authenticated %}
-                    <li class="text-white">Hello, {{ request.user }} <a href="{% url 'logout' %}">Log Out</a></li>
+                    <li class="text-white">Hello, {{ request.user }}</li>
+                    <li><a href="{% url 'logout' %}">Log Out</a></li>
                     {% else %}
                     <li class="text-white">Hello, {{ request.user }}</li>
                     {% endif %}
@@ -444,13 +452,36 @@
       </div>
     </div>
 
+    <!-- MODAL MEMBER STATUS -->
+
+    <div class="modal fade" id="membershipStatus" tabindex="-1" role="dialog" aria-labelledby="membershipStatusLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+  
+          <div class="modal-content">
+            <div class="modal-header">
+  
+              <h4 class="modal-title" id="membershipStatusLabel">Membership Status</h4>
+  
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+  
+            <div class="modal-body">
+              {% for status in membership_status %}
+              <p>{{ status.end }}</p>
+              {% endfor %}
+              
+            </div>
+  
+            <div class="modal-footer"></div>
+  
+          </div>
+        </div>
+      </div>
+
      <!-- SCRIPTS -->
 
-    <script>
-        $('.carousel').carousel({
-          interval: 2000
-        })
-    </script>
      <script src="{% static 'jquery.min.js' %}"></script>
      <script src="{% static 'bootstrap.min.js' %}"></script>
      <script src="{% static 'aos.js' %}"></script>

@@ -58,10 +58,10 @@ class MembershipForm(ModelForm):
                'pattern': '[0-9]\d{8,16}'}))
 
     MEMBER_CLASS_CHOICE = [
-        ('gym class', 'Member class?'),
-        ('one month', 'One Month (80k)'),
-        ('three months', 'Three Months (220k)'),
-        ('six months', 'Six Months (400k)'),
+        (None, 'Member class?'),
+        (1, 'One Month (80k)'),
+        (3, 'Three Months (220k)'),
+        (6, 'Six Months (400k)'),
     ]
     member_class = forms.CharField(max_length=100, label=False, widget=forms.Select(
         attrs={'class': 'form-control', }, 
@@ -97,7 +97,7 @@ class MembershipForm(ModelForm):
         attrs={'class': 'form-control', }, 
         choices=GYM_INFORMATION_CHOICE))
 
-    message = forms.CharField(label=False, widget=forms.Textarea(
+    message = forms.CharField(label=False, required=False, widget=forms.Textarea(
         attrs={'class': 'form-control',
                'placeholder': 'If you choose "Yes" on disability field or "Other" in the other fields please explain here',
                'rows': '5'}))

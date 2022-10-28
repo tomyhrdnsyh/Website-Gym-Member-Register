@@ -1,3 +1,4 @@
+from email.policy import default
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -26,6 +27,9 @@ class Membership(models.Model):
     gym_information = models.CharField(null=True, max_length=100)
     member_class = models.CharField(null=True, max_length=254)
     message = models.TextField()
+    payment_status = models.BooleanField(default=False)
+    start = models.DateField(null=True)
+    end = models.DateField(null=True)
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
