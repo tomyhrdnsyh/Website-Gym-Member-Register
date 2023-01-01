@@ -14,6 +14,25 @@ class Review(models.Model):
         return self.name
 
 
+class MembershipDetail(models.Model):
+    member_class = models.CharField(null=True, max_length=254)
+    price = models.IntegerField(null=True)
+
+    def __str__(self):
+        return self.member_class
+
+
+class Payment(models.Model):
+    id_payment = models.CharField(primary_key=True, max_length=250)
+    transaction_time = models.DateTimeField()
+    gross_amount = models.IntegerField()
+    payment_type = models.CharField(max_length=100, null=True)
+    payment_status = models.CharField(max_length=100, null=True)
+
+    def __str__(self) -> str:
+        return self.payment_status
+
+
 class Membership(models.Model):
     user_account = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
@@ -25,9 +44,9 @@ class Membership(models.Model):
     program = models.CharField(null=True, max_length=100)
     disability_disease = models.CharField(null=True, max_length=100)
     gym_information = models.CharField(null=True, max_length=100)
-    member_class = models.CharField(null=True, max_length=254)
-    message = models.TextField()
-    payment_status = models.BooleanField(default=False)
+    member_class = models.ForeignKey(MembershipDetail, on_delete=models.CASCADE, null=True)
+    message = models.TextField(null=True)
+    payment_status = models.ForeignKey(Payment, on_delete=models.CASCADE, null=True)
     start = models.DateField(null=True)
     end = models.DateField(null=True)
     date = models.DateTimeField(auto_now_add=True)
@@ -45,3 +64,6 @@ class Instructor(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+
+

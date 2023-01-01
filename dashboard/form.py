@@ -2,7 +2,7 @@ from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
-from .models import Review, Membership
+from .models import Review, Membership, MembershipDetail
 
 
 class ReviewForms(ModelForm):
@@ -55,15 +55,11 @@ class MembershipForm(ModelForm):
                'placeholder': '087788998887',
                'pattern': '[0-9]\d{8,16}'}))
 
-    MEMBER_CLASS_CHOICE = [
-        (None, 'Member class?'),
-        (1, 'One Month (80k)'),
-        (3, 'Three Months (220k)'),
-        (6, 'Six Months (400k)'),
-    ]
-    member_class = forms.CharField(max_length=100, label=False, widget=forms.Select(
-        attrs={'class': 'form-control', }, 
-        choices=MEMBER_CLASS_CHOICE))
+    member_class = forms.ModelChoiceField(
+        queryset=MembershipDetail.objects.all(),
+        required=True,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
 
     PROGRAM_CHOICE = [
         (None, 'The program you choose?'),
