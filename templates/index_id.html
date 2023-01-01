@@ -126,11 +126,11 @@
                     <h6 class="mb-4 text-white" data-aos="fade-up">Harga member mulai Rp 80 ribu per bulan, Rp 220 ribu per tiga bulan, Rp 400 ribu per enam bulan</h6>
 
                     <p data-aos="fade-up" data-aos-delay="200">Dapatkan akses tak terbatas ke semua Instruktur Baginda Gym gratis setiap hari.</p>
-                    {% if request.user.is_authenticated %}
-                        <a href="#" class="btn custom-btn bg-color mt-3" data-aos="fade-up" data-aos-delay="300" data-toggle="modal" data-target="#membershipForm">Menjadi anggota hari ini</a>
-                    {% else %}
-                        <a href="/login" class="btn custom-btn bg-color mt-3" data-aos="fade-up" data-aos-delay="300">Log In dulu baru member</a>
-                    {% endif %}
+{#                    {% if request.user.is_authenticated %}#}
+                    <a href="#" class="btn custom-btn bg-color mt-3" data-aos="fade-up" data-aos-delay="300" data-toggle="modal" data-target="#membershipForm">Menjadi anggota hari ini</a>
+{#                    {% else %}#}
+{#                        <a href="/login" class="btn custom-btn bg-color mt-3" data-aos="fade-up" data-aos-delay="300">Log In dulu baru member</a>#}
+{#                    {% endif %}#}
                 </div>
 
                 <div class="mr-lg-auto mt-3 col-lg-4 col-md-6 col-12">
@@ -255,98 +255,42 @@
                                      <tbody>
                                          <tr>
                                             <td><small>8:00 pagi</small></td>
+                                            {% for item in jam_8 %}
                                             <td>
-                                                <strong>JOY</strong>
+                                                <strong>{{ item }}</strong>
                                                 <span>8:00 - 11:00</span>
                                             </td>
-                                            <td>
-                                                <strong>AXEL</strong>
-                                                <span>8:00 - 11:00</span>
-                                            </td>
-                                            <td>
-                                                <strong>REYNAND</strong>
-                                                <span>8:00 - 11:00</span>
-                                            </td>
-                                            <td>
-                                                <strong>AXEL</strong>
-                                                <span>8:00 - 11:00</span>
-                                            </td>
-                                            <td>
-                                                <strong>DIAN</strong>
-                                                <span>8:00 - 11:00</span>
-                                            </td>
+                                            {% endfor %}
                                          </tr>
 
                                          <tr>
                                             <td><small>11:00 pagi</small></td>
+                                             {% for item in jam_11 %}
                                             <td>
-                                                <strong>DIAN</strong>
+                                                <strong>{{ item }}</strong>
                                                 <span>11:00 - 14:00</span>
                                             </td>
-                                            <td>
-                                                <strong>JOY</strong>
-                                                <span>11:00 - 14:00</span>
-                                            </td>
-                                            <td>
-                                                <strong>JOY</strong>
-                                                <span>11:00 - 14:00</span>
-                                            </td>
-                                            <td>
-                                                <strong>REYNAND</strong>
-                                                <span>11:00 - 14:00</span>
-                                            </td>
-                                            <td>
-                                                <strong>JOY</strong>
-                                                <span>11:00 - 14:00</span>
-                                            </td>
+                                             {% endfor %}
                                          </tr>
 
                                          <tr>
                                             <td><small>2:00 Siang</small></td>
-                                            <td>
-                                                <strong>AXEL</strong>
+                                             {% for item in jam_14 %}
+                                             <td>
+                                                <strong>{{ item }}</strong>
                                                 <span>14:00 - 17:00</span>
                                             </td>
-                                            <td>
-                                                <strong>DIAN</strong>
-                                                <span>14:00 - 17:00</span>
-                                            </td>
-                                            <td>
-                                                <strong>AXEL</strong>
-                                                <span>14:00 - 17:00</span>
-                                            </td>
-                                            <td>
-                                                <strong>JOY</strong>
-                                                <span>14:00 - 17:00</span>
-                                            </td>
-                                            <td>
-                                                <strong>AXEL</strong>
-                                                <span>14:00 - 17:00</span>
-                                            </td>
+                                             {% endfor %}
                                          </tr>
 
                                          <tr>
                                             <td><small>5:00 sore</small></td>
+                                             {% for item in jam_17 %}
                                             <td>
-                                                <strong>REYNAND</strong>
+                                                <strong>{{ item }}</strong>
                                                 <span>17:00 - 20:00</span>
                                             </td>
-                                            <td>
-                                                <strong>REYNAND</strong>
-                                                <span>17:00 - 20:00</span>
-                                            </td>
-                                            <td>
-                                                <strong>DIAN</strong>
-                                                <span>17:00 - 20:00</span>
-                                            </td>
-                                            <td>
-                                                <strong>DIAN</strong>
-                                                <span>17:00 - 20:00</span>
-                                            </td>
-                                            <td>
-                                                <strong>REYNAND</strong>
-                                                <span>17:00 - 20:00</span>
-                                            </td>
+                                             {% endfor %}
                                          </tr>
                                      </tbody>
                                  </table>

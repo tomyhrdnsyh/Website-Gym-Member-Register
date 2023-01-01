@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+from django.utils.translation import gettext_lazy as _
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -24,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-z@378$ku)jzo!#p_n&f9k-r8ul)139e84c21!wg5pxbnut2=08'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -32,6 +33,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -107,12 +109,38 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
+LANGUAGES = [
+    ('en', _('English')),
+    ('id', _('Indonesian')),
+]
+
 TIME_ZONE = 'Asia/Jakarta'
 
 USE_I18N = True
 
 USE_TZ = True
 
+JAZZMIN_SETTINGS = {
+    "site_title": "Baginda Gym",
+
+    "site_brand": "Baginda Gym",
+    "site_header": "BagindaGym",
+    "site_logo": "img/WebsiteLogo.png",
+    "copyright": "BagindaGym",
+    "topmenu_links": [
+
+            # Url that gets reversed (Permissions can be added)
+            {"name": "Halaman Utama",  "url": "/", "permissions": ["auth.view_user"]},
+
+            # external url that opens in a new window (Permissions can be added)
+            # {"name": "Support", "url": "https://github.com/tomyhrdnsyh", "new_window": True},
+
+            # model admin to link to (Permissions checked against model)
+            {"model": "auth.User"},
+        ],
+    # "language_chooser": True,
+
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/

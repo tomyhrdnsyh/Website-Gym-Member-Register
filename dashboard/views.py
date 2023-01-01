@@ -16,7 +16,6 @@ import midtransclient
 import uuid
 
 
-
 IMG_REVIEWS = ['cardio-class.jpg', 'team-image01.jpg', 'team-image.jpg', 'crossfit-class.jpg', 'yoga-class.jpg']
 IMG_INSTRUCTORS = ['gym-instructor-1.jpg', 'gym-instructor-2.jpg', 'gym-instructor-3.jpg', 'gym-instructor-4.jpeg']
 MY_EMAIL = 'bagindagym2022@gmail.com'
@@ -43,8 +42,14 @@ def dashboard(request, html=None):
     review = custom_template(review, IMG_REVIEWS, delay=400)
 
     # get data instructor from database and view to template
-    instructor = Instructor.objects.values()
-    instructor = custom_template(instructor, IMG_INSTRUCTORS, delay=400)
+    instructor = Instructor.objects.values('name')
+    img_instructor = custom_template(instructor, IMG_INSTRUCTORS, delay=400)
+
+    name = [item['name'].split()[0] for item in instructor]
+    jam_8 = [random.choice(name) for _ in range(5)]
+    jam_11 = [random.choice(name) for _ in range(5)]
+    jam_14 = [random.choice(name) for _ in range(5)]
+    jam_17 = [random.choice(name) for _ in range(5)]
 
     # return to database if request is post
     if request.POST:
@@ -79,9 +84,14 @@ def dashboard(request, html=None):
 
         return redirect(request.POST.get('next', '/'))
 
-    context = {'review': review, 'instructors': instructor,
+    context = {'review': review, 'instructors': img_instructor,
                'review_form': ReviewForms,
-               'membership_form': MembershipForm}
+               'membership_form': MembershipForm,
+               'jam_8': jam_8,
+               'jam_11': jam_11,
+               'jam_14': jam_14,
+               'jam_17': jam_17,
+               }
 
     # if user is login get data membership status from database and view to template
     if request.user.is_authenticated:
