@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-z@378$ku)jzo!#p_n&f9k-r8ul)139e84c21!wg5pxbnut2=08'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -125,7 +125,7 @@ JAZZMIN_SETTINGS = {
 
     "site_brand": "Baginda Gym",
     "site_header": "BagindaGym",
-    "site_logo": "img/WebsiteLogo.png",
+    "site_logo": "WebsiteLogo.png",
     "copyright": "BagindaGym",
     "topmenu_links": [
 
