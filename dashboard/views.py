@@ -63,11 +63,12 @@ def dashboard(request, html=None):
                 customer_email = request.POST.get('email')
                 username = request.POST.get('name').replace(' ', '').lower()
                 password = 'rahasia2022'
-                # send_email_password(customer_email, username, password)
+                send_email_password(customer_email, username, password)
 
                 # save to user model
-                # user = User.objects.create_user(username=username, password=password, unique_code=order_id, email=customer_email)
-                # save_membership_to_model(request, membership, user)
+                user = User.objects.create_user(username=username, password=password,
+                                                email=customer_email)
+                save_membership_to_model(request, membership, user=user, unique_code=order_id)
 
                 return call_payment(request, order_id)
 
