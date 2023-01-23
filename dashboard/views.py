@@ -19,7 +19,7 @@ import uuid
 IMG_REVIEWS = ['cardio-class.jpg', 'team-image01.jpg', 'team-image.jpg', 'crossfit-class.jpg', 'yoga-class.jpg']
 IMG_INSTRUCTORS = ['gym-instructor-1.jpg', 'gym-instructor-2.jpg', 'gym-instructor-3.jpg', 'gym-instructor-4.jpeg']
 MY_EMAIL = 'bagindagym2022@gmail.com'
-MY_PASSWORD = 'gdpamlydzpmncbac'
+MY_PASSWORD = 'pbzjpfguqerklujg'
 
 
 def custom_template(params: dict, img: list, delay):
@@ -36,6 +36,17 @@ def custom_template(params: dict, img: list, delay):
 
 def dashboard(request, html=None):
     html = {'template': 'index.html'} if html is None else html
+
+    # check active status member
+    status = Membership.objects.all()
+
+    for item in status:
+        if item.end < date.today():
+            item.active_status = "Not Active"
+            item.save()
+        else:
+            item.active_status = "Active"
+            item.save()
 
     # get data reviewers from database and view to template
     review = Review.objects.values()

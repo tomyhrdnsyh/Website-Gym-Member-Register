@@ -50,6 +50,7 @@ class Membership(models.Model):
     start = models.DateField(null=True)
     end = models.DateField(null=True)
     date = models.DateTimeField(auto_now_add=True)
+    active_status = models.CharField(max_length=150, null=True, blank=True)
 
     def __str__(self) -> str:
         return self.name
