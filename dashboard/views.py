@@ -56,11 +56,11 @@ def dashboard(request, html=None):
     instructor = Instructor.objects.values('name')
     img_instructor = custom_template(instructor, IMG_INSTRUCTORS, delay=400)
 
-    name = [item['name'].split()[0] for item in instructor]
-    jam_8 = [random.choice(name) for _ in range(5)]
-    jam_11 = [random.choice(name) for _ in range(5)]
-    jam_14 = [random.choice(name) for _ in range(5)]
-    jam_17 = [random.choice(name) for _ in range(5)]
+    # name = [item['name'].split()[0] for item in instructor]
+    # jam_8 = [random.choice(name) for _ in range(5)]
+    # jam_11 = [random.choice(name) for _ in range(5)]
+    # jam_14 = [random.choice(name) for _ in range(5)]
+    # jam_17 = [random.choice(name) for _ in range(5)]
 
     # return to database if request is post
     if request.POST:
@@ -98,10 +98,10 @@ def dashboard(request, html=None):
     context = {'review': review, 'instructors': img_instructor,
                'review_form': ReviewForms,
                'membership_form': MembershipForm,
-               'jam_8': jam_8,
-               'jam_11': jam_11,
-               'jam_14': jam_14,
-               'jam_17': jam_17,
+               # 'jam_8': jam_8,
+               # 'jam_11': jam_11,
+               # 'jam_14': jam_14,
+               # 'jam_17': jam_17,
                }
 
     # if user is login get data membership status from database and view to template
