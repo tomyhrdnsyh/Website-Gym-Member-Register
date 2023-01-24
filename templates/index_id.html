@@ -316,7 +316,11 @@
                             {{ review_form }}
 
                             <input type="hidden" name="next" value="{{ request.path }}">
-                            <button type="submit" class="form-control" id="submit-button" name="review">Send Message</button>
+                            {% if request.user.is_authenticated %}
+                            <button type="submit" class="form-control" id="submit-button" name="review">Kirim Pesan</button>
+                            {% else %}
+                            <button type="button" disabled class="form-control" id="submit-button">Login dulu</button>
+                            {% endif %}
                         </form>
                     </div>
 

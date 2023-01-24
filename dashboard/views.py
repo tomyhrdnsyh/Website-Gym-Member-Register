@@ -228,7 +228,7 @@ def payment_midtrans(price, order_id):
             "secure": True
         },
         "callbacks": {
-            "finish": "http://127.0.0.1:8000/"
+            "finish": "https://tomyhrdnsyh28.pythonanywhere.com/"
         },
     }
 

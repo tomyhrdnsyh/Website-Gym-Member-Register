@@ -21,6 +21,9 @@ class MembershipDetail(models.Model):
     def __str__(self):
         return self.member_class
 
+    class Meta:
+        verbose_name_plural = 'price detail'
+
 
 class Payment(models.Model):
     id_payment = models.CharField(primary_key=True, max_length=250)
