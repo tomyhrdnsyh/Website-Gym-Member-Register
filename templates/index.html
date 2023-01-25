@@ -313,9 +313,9 @@
 
                             <input type="hidden" name="next" value="{{ request.path }}">
                             {% if request.user.is_authenticated %}
-                            <button type="submit" class="form-control" id="submit-button" name="review">Send Message</button>
+                            <button type="submit" class="form-control" name="review">Send Message</button>
                             {% else %}
-                            <button type="button" disabled class="form-control" id="submit-button">Login First</button>
+                            <a href="{% url 'login' %}" class="btn btn-danger form-control">Login First</a>
                             {% endif %}
                         </form>
                     </div>
@@ -380,10 +380,10 @@
                 {{ membership_form }}
 
                 <input type="hidden" name="next" value="{{ request.path }}">
-                <button type="submit" class="form-control" id="submit-button" name="membership">Submit Button</button>
+                <button type="submit" class="btn form-control" id="submit-button" disabled="disabled" name="membership">Submit Button</button>
                 
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="signup-agree">
+                    <input type="checkbox" class="custom-control-input" id="signup-agree" onclick="checkBox()">
                     <label class="custom-control-label text-small text-muted" for="signup-agree">I agree to the <a href="#">Terms &amp;Conditions</a>
                     </label>
                 </div>
@@ -432,6 +432,10 @@
                       <tr>
                           <td>Address</td>
                           <td>{{ status.address }}</td>
+                      </tr>
+                      <tr>
+                          <td>Member Status</td>
+                          <td>{{ status.active_status }}</td>
                       </tr>
                       <tr>
                           <td>Program</td>

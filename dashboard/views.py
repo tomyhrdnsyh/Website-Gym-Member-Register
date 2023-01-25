@@ -41,8 +41,9 @@ def dashboard(request, html=None):
     status = Membership.objects.all()
 
     for item in status:
-        if item.end < date.today():
-            item.active_status = "Not Active"
+        print(item.payment_status)
+        if item.end < date.today() and item.payment_status not in ["settlement", "capture"]:
+            item.active_status = "Non Active"
             item.save()
         else:
             item.active_status = "Active"

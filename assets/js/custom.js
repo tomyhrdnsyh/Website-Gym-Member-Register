@@ -26,6 +26,15 @@
     });    
   });
 
+function checkBox() {
+    var the_terms = $("#signup-agree");
+
+        if (the_terms.is(":checked")) {
+            $("#submit-button").removeAttr("disabled");
+        } else {
+            $("#submit-button").attr("disabled", "disabled");
+        }
+}
 
     
 
