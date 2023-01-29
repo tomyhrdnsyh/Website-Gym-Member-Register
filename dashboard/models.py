@@ -1,6 +1,7 @@
 from email.policy import default
 from django.db import models
 from django.contrib.auth.models import User
+from multiselectfield import MultiSelectField
 
 
 # Create your models here.
@@ -12,7 +13,6 @@ class Review(models.Model):
 
     def __str__(self) -> str:
         return self.name
-
 
 class MembershipDetail(models.Model):
     member_class = models.CharField(null=True, max_length=254)
@@ -58,6 +58,13 @@ class Membership(models.Model):
     def __str__(self) -> str:
         return self.name
 
+SCHEDULE = (
+        ('senin', 'Senin'),
+        ('selasa', 'Selasa'),
+        ('rabu', 'Rabu'),
+        ('kamis', 'Kamis'),
+        ('jumat', 'Jumat'),
+    )
 
 class Instructor(models.Model):
     name = models.CharField(max_length=100)
@@ -65,6 +72,7 @@ class Instructor(models.Model):
     birth = models.CharField(max_length=250)
     phone = models.CharField(max_length=20)
     date = models.DateTimeField(auto_now_add=True)
+    schedule = MultiSelectField(max_length=250, choices=SCHEDULE, max_choices=3, default='senin')
 
     def __str__(self) -> str:
         return self.name

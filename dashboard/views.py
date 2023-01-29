@@ -19,7 +19,7 @@ import uuid
 IMG_REVIEWS = ['cardio-class.jpg', 'team-image01.jpg', 'team-image.jpg', 'crossfit-class.jpg', 'yoga-class.jpg']
 IMG_INSTRUCTORS = ['gym-instructor-1.jpg', 'gym-instructor-2.jpg', 'gym-instructor-3.jpg', 'gym-instructor-4.jpeg']
 MY_EMAIL = 'bagindagym2022@gmail.com'
-MY_PASSWORD = 'pbzjpfguqerklujg'
+MY_PASSWORD = 'tpjctizchkgzeclk'
 
 
 def custom_template(params: dict, img: list, delay):
@@ -57,11 +57,11 @@ def dashboard(request, html=None):
     instructor = Instructor.objects.values('name')
     img_instructor = custom_template(instructor, IMG_INSTRUCTORS, delay=400)
 
-    # name = [item['name'].split()[0] for item in instructor]
-    # jam_8 = [random.choice(name) for _ in range(5)]
-    # jam_11 = [random.choice(name) for _ in range(5)]
-    # jam_14 = [random.choice(name) for _ in range(5)]
-    # jam_17 = [random.choice(name) for _ in range(5)]
+    name = [item['name'].split()[0] for item in instructor]
+    jam_8 = [random.choice(name) for _ in range(5)]
+    jam_11 = [random.choice(name) for _ in range(5)]
+    jam_14 = [random.choice(name) for _ in range(5)]
+    jam_17 = [random.choice(name) for _ in range(5)]
 
     # return to database if request is post
     if request.POST:
@@ -99,10 +99,10 @@ def dashboard(request, html=None):
     context = {'review': review, 'instructors': img_instructor,
                'review_form': ReviewForms,
                'membership_form': MembershipForm,
-               # 'jam_8': jam_8,
-               # 'jam_11': jam_11,
-               # 'jam_14': jam_14,
-               # 'jam_17': jam_17,
+               'jam_8': jam_8,
+               'jam_11': jam_11,
+               'jam_14': jam_14,
+               'jam_17': jam_17,
                }
 
     # if user is login get data membership status from database and view to template
@@ -122,7 +122,7 @@ def dashboard(request, html=None):
             order = Payment.objects.get(id_payment=item.payment_status_id)
             if order.payment_status == 'process' or order.payment_status == 'pending':
                 try:
-                    status_response = api_client.transactions.status(order.id_payment)
+                    status_response = api_client.transactions.status(40)
                 except Exception as e:
                     err = e
                     print(err)

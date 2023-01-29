@@ -17,7 +17,7 @@ class MembershipAdmin(admin.ModelAdmin):
 
 @admin.register(Instructor)
 class InstructorAdmin(admin.ModelAdmin):
-    list_display = ("id", "name", "address", "birth", "phone", "date")
+    list_display = ("id", "name", "address", "birth", "phone", "date", "schedule")
 
 
 @admin.register(MembershipDetail)
