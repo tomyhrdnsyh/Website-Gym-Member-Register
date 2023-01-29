@@ -1,0 +1,18 @@
+{% extends 'login_register_base_layout.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="col-md-6">
+        <div class="m-5">
+            <h2 data-aos="fade-up" class="text-center" data-aos-delay="300">Congratulations !</h2>
+        </div>
+        <div class="m-5 text-center" data-aos="fade-up" data-aos-delay="500">
+            <p class="h2">Your account is activated</p>
+        </div>
+        <p class="text-center" data-aos="fade-up" data-aos-delay="500"><a href="/login/" class="active">Sign In</a></p>
+    </div>
+    <div class="col-md-6" data-aos="fade-up" data-aos-delay="500">
+            <img data-aos="fade-up" data-aos-delay="500" src="{% static 'login-register/login_img.svg' %}" alt="login" class="img-fluid p-5">
+    </div>
+
+{% endblock %}

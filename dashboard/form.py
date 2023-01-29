@@ -6,16 +6,16 @@ from .models import Review, Membership, MembershipDetail
 
 
 class ReviewForms(ModelForm):
-    name = forms.CharField(max_length=100, label=False,
-                           widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Name'}))
-    email = forms.EmailField(max_length=254, label=False,
-                             widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Email'}))
+    # name = forms.CharField(max_length=100, label=False,
+    #                        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Name'}))
+    # email = forms.EmailField(max_length=254, label=False,
+    #                          widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Email'}))
     message = forms.CharField(label=False,
                               widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Message'}))
 
     class Meta:
         model = Review
-        fields = ['name', 'email', 'message']
+        fields = ['message']
 
 
 class MembershipForm(ModelForm):

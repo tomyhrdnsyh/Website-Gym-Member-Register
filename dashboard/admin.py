@@ -1,6 +1,5 @@
 from django.contrib import admin
-from django.contrib.admin import AdminSite
-from .models import Review, Membership, Instructor, MembershipDetail, Payment
+from .models import Review, Membership, Instructor, MembershipDetail, Payment, UserActivated
 
 # Register your models here.
 
@@ -8,6 +7,11 @@ from .models import Review, Membership, Instructor, MembershipDetail, Payment
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
     list_display = ("id", "name", "email", "message", "date")
+
+
+@admin.register(UserActivated)
+class UserActivatedAdmin(admin.ModelAdmin):
+    list_display = ("id", "user", "status")
 
 
 @admin.register(Membership)

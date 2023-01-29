@@ -238,52 +238,62 @@
                                  <div class="col-lg-12 py-5 col-md-12 col-12">
                                      <table class="table table-bordered table-responsive schedule-table" data-aos="fade-up" data-aos-delay="300">
 
-                                         <thead class="thead-light">
-<!--                                             <th><i class="fa fa-calendar"></i></th>-->
-                                             <th>Mon</th>
-                                             <th>Tue</th>
-                                             <th>Wed</th>
-                                             <th>Thu</th>
-                                             <th>Fri</th>
-                                         </thead>
+{#                                         <thead class="thead-light">#}
+{#                                            <th><i class="fa fa-calendar"></i></th>#}
+{#                                             <th>Mon</th>#}
+{#                                             <th>Tue</th>#}
+{#                                             <th>Wed</th>#}
+{#                                             <th>Thu</th>#}
+{#                                             <th>Fri</th>#}
+{#                                         </thead>#}
 
                                          <tbody>
                                              <tr>
-<!--                                                <td><small>8:00 am</small></td>-->
-                                                 {% for item in jam_8 %}
+                                                <td><small>Senin</small></td>
+                                                 {% for item in senin %}
                                                 <td>
                                                     <strong>{{ item }}</strong>
-                                                    <span>8:00 am - 11:00 am</span>
+{#                                                    <span>8:00 am - 11:00 am</span>#}
                                                 </td>
                                                  {% endfor %}
                                              </tr>
 
                                              <tr>
-<!--                                                <td><small>11:00 am</small></td>-->
-                                                 {% for item in jam_11 %}
+                                                <td><small>Selasa</small></td>
+                                                 {% for item in selasa %}
                                                 <td>
                                                     <strong>{{ item }}</strong>
-                                                    <span>11:00 am - 2:00 PM</span>
+{#                                                    <span>11:00 am - 2:00 PM</span>#}
                                                 </td>
                                                  {% endfor %}
                                              </tr>
 
                                              <tr>
-<!--                                                <td><small>2:00 pm</small></td>-->
-                                                 {% for item in jam_14 %}
+                                                <td><small>Rabu</small></td>
+                                                 {% for item in rabu %}
                                                 <td>
                                                     <strong>{{ item }}</strong>
-                                                    <span>2:00 pm - 5:00 pm</span>
+{#                                                    <span>2:00 pm - 5:00 pm</span>#}
                                                 </td>
                                                  {% endfor %}
                                              </tr>
 
                                              <tr>
-<!--                                                <td><small>5:00 pm</small></td>-->
-                                                 {% for item in jam_17 %}
+                                                <td><small>Kamis</small></td>
+                                                 {% for item in kamis %}
                                                 <td>
                                                     <strong>{{ item }}</strong>
-                                                    <span>5:00 pm - 8:00 pm</span>
+{#                                                    <span>5:00 pm - 8:00 pm</span>#}
+                                                </td>
+                                                 {% endfor %}
+                                             </tr>
+
+                                            <tr>
+                                                <td><small>Jumat</small></td>
+                                                 {% for item in jumat %}
+                                                <td>
+                                                    <strong>{{ item }}</strong>
+{#                                                    <span>5:00 pm - 8:00 pm</span>#}
                                                 </td>
                                                  {% endfor %}
                                              </tr>
@@ -312,7 +322,7 @@
 
                             <input type="hidden" name="next" value="{{ request.path }}">
                             {% if request.user.is_authenticated %}
-                            <button type="submit" class="form-control" name="review">Send Message</button>
+                            <button type="submit" class="btn btn-dark form-control" name="review">Send Message</button>
                             {% else %}
                             <a href="{% url 'login' %}" class="btn btn-danger form-control">Login First</a>
                             {% endif %}

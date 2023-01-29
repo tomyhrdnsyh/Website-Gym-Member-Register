@@ -14,6 +14,15 @@ class Review(models.Model):
     def __str__(self) -> str:
         return self.name
 
+
+class UserActivated(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    status = models.CharField(null=True, blank=True, max_length=50)
+
+    def __str__(self) -> str:
+        return f"{self.user} - {self.status}"
+
+
 class MembershipDetail(models.Model):
     member_class = models.CharField(null=True, max_length=254)
     price = models.IntegerField(null=True)
@@ -58,13 +67,15 @@ class Membership(models.Model):
     def __str__(self) -> str:
         return self.name
 
+
 SCHEDULE = (
-        ('senin', 'Senin'),
-        ('selasa', 'Selasa'),
-        ('rabu', 'Rabu'),
-        ('kamis', 'Kamis'),
-        ('jumat', 'Jumat'),
-    )
+    ('senin', 'Senin'),
+    ('selasa', 'Selasa'),
+    ('rabu', 'Rabu'),
+    ('kamis', 'Kamis'),
+    ('jumat', 'Jumat'),
+)
+
 
 class Instructor(models.Model):
     name = models.CharField(max_length=100)
@@ -72,10 +83,7 @@ class Instructor(models.Model):
     birth = models.CharField(max_length=250)
     phone = models.CharField(max_length=20)
     date = models.DateTimeField(auto_now_add=True)
-    schedule = MultiSelectField(max_length=250, choices=SCHEDULE, max_choices=3, default='senin')
+    schedule = MultiSelectField(max_length=250, choices=SCHEDULE, max_choices=5, default='senin')
 
     def __str__(self) -> str:
         return self.name
-
-
-

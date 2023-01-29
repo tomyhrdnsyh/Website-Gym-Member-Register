@@ -7,7 +7,7 @@ from django.contrib import messages
 # from django.contrib.auth.decorators import login_required
 from .form import ReviewForms, MembershipForm, CreateUserForm
 from django.contrib.auth.models import User
-from .models import Review, Instructor, Membership, MembershipDetail, Payment
+from .models import Review, Instructor, Membership, MembershipDetail, Payment, UserActivated
 from dateutil.relativedelta import relativedelta
 from datetime import date, datetime
 import random
@@ -34,6 +34,25 @@ def custom_template(params: dict, img: list, delay):
     return params
 
 
+def activate(request):
+    context = {
+
+    }
+    if 'id' in request.GET:
+        id_user = request.GET.get('id')
+        user = User.objects.get(id=id_user)
+
+        obj, status = UserActivated.objects.get_or_create(
+            user=user,
+            defaults={
+                'user': user,
+                'status': 'Activated'
+            }
+        )
+
+    return render(request, 'activate.html', context)
+
+
 def dashboard(request, html=None):
     html = {'template': 'index.html'} if html is None else html
 
@@ -41,7 +60,7 @@ def dashboard(request, html=None):
     status = Membership.objects.all()
 
     for item in status:
-        print(item.payment_status)
+        # print(item.payment_status)
         if item.end < date.today() and item.payment_status not in ["settlement", "capture"]:
             item.active_status = "Non Active"
             item.save()
@@ -54,15 +73,14 @@ def dashboard(request, html=None):
     review = custom_template(review, IMG_REVIEWS, delay=400)
 
     # get data instructor from database and view to template
-    instructor = Instructor.objects.values('name')
+    instructor = Instructor.objects.values('name', 'schedule')
     img_instructor = custom_template(instructor, IMG_INSTRUCTORS, delay=400)
 
-    name = [item['name'].split()[0] for item in instructor]
-    jam_8 = [random.choice(name) for _ in range(5)]
-    jam_11 = [random.choice(name) for _ in range(5)]
-    jam_14 = [random.choice(name) for _ in range(5)]
-    jam_17 = [random.choice(name) for _ in range(5)]
-
+    senin = [item['name'] for item in instructor if 'senin' in item['schedule']]
+    selasa = [item['name'] for item in instructor if 'selasa' in item['schedule']]
+    rabu = [item['name'] for item in instructor if 'rabu' in item['schedule']]
+    kamis = [item['name'] for item in instructor if 'kamis' in item['schedule']]
+    jumat = [item['name'] for item in instructor if 'jumat' in item['schedule']]
     # return to database if request is post
     if request.POST:
         # to_database adalah mengecek apakah POST dari form membership atau form reviews
@@ -80,18 +98,22 @@ def dashboard(request, html=None):
                 customer_email = request.POST.get('email')
                 username = request.POST.get('name').replace(' ', '').lower()
                 password = 'rahasia2022'
-                send_email_password(customer_email, username, password)
 
                 # save to user model
                 user = User.objects.create_user(username=username, password=password,
                                                 email=customer_email)
                 save_membership_to_model(request, membership, user=user, unique_code=order_id)
 
+                url = request.build_absolute_uri('/') + f'activate/?id={user.id}'
+                send_email_password(customer_email, username, password, url)
+
                 return call_payment(request, order_id)
 
         else:
             to_database = ReviewForms(request.POST)
             if to_database.is_valid():
+                to_database.instance.name = request.user.username
+                to_database.instance.email = request.user.email
                 to_database.save()
 
         return redirect(request.POST.get('next', '/'))
@@ -99,10 +121,11 @@ def dashboard(request, html=None):
     context = {'review': review, 'instructors': img_instructor,
                'review_form': ReviewForms,
                'membership_form': MembershipForm,
-               'jam_8': jam_8,
-               'jam_11': jam_11,
-               'jam_14': jam_14,
-               'jam_17': jam_17,
+               'senin': senin,
+               'selasa': selasa,
+               'rabu': rabu,
+               'kamis': kamis,
+               'jumat': jumat,
                }
 
     # if user is login get data membership status from database and view to template
@@ -177,7 +200,7 @@ def register_page(request):
     return render(request, 'register.html', context)
 
 
-def send_email_password(customer_email, username, password):
+def send_email_password(customer_email, username, password, url):
     with smtplib.SMTP('smtp.gmail.com', port=587) as connection:
         connection.starttls()
         connection.login(user=MY_EMAIL, password=MY_PASSWORD)
@@ -186,7 +209,8 @@ def send_email_password(customer_email, username, password):
                             msg='Subject:Username Password Baginda Gym\n\n'
                                 'This is your username password \n\n'
                                 f'Username : {username}\n'
-                                f'Password : {password}')
+                                f'Password : {password}\n'
+                                f'link activated" {url}')
 
 
 def save_payment_to_model(unique_code, price):
@@ -214,7 +238,7 @@ def save_membership_to_model(request, membership, unique_code, user=None):
     membership.save()
 
 
-def payment_midtrans(price, order_id):
+def payment_midtrans(request, price, order_id):
     snap = midtransclient.Snap(
         is_production=False,
         server_key='SB-Mid-server-01NTFWb6l738KBzH0OWZuhks',
@@ -229,7 +253,7 @@ def payment_midtrans(price, order_id):
             "secure": True
         },
         "callbacks": {
-            "finish": "https://tomyhrdnsyh28.pythonanywhere.com/"
+            "finish": request.build_absolute_uri('/')
         },
     }
 
@@ -241,5 +265,5 @@ def call_payment(request, order_id):
 
     price = MembershipDetail.objects.get(id=request.POST.get('member_class')).price
 
-    pay = payment_midtrans(price, order_id=order_id)
+    pay = payment_midtrans(request, price, order_id=order_id)
     return redirect(pay['redirect_url'])
