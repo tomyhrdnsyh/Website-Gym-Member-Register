@@ -16,7 +16,7 @@ class UserActivatedAdmin(admin.ModelAdmin):
 
 @admin.register(Membership)
 class MembershipAdmin(admin.ModelAdmin):
-    list_display = ("id", "user_account", "member_class", "phone", "program", "payment_status", "date", "active_status")
+    list_display = ("id", "user_account", "member_class", "phone", "program", "payment_status", "end", "active_status")
 
 
 @admin.register(Instructor)
