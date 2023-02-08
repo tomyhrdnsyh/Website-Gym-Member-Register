@@ -145,10 +145,10 @@ def dashboard(request, html=None):
             order = Payment.objects.get(id_payment=item.payment_status_id)
             if order.payment_status == 'process' or order.payment_status == 'pending':
                 try:
-                    status_response = api_client.transactions.status(40)
+                    status_response = api_client.transactions.status(item.payment_status_id)
                 except Exception as e:
                     err = e
-                    print(err)
+                    print('error', err)
                 else:
                     order.payment_status = status_response.get('transaction_status')
                     order.payment_type = status_response.get('payment_type')
