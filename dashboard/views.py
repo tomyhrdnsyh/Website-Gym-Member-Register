@@ -18,8 +18,8 @@ import uuid
 
 IMG_REVIEWS = ['cardio-class.jpg', 'team-image01.jpg', 'team-image.jpg', 'crossfit-class.jpg', 'yoga-class.jpg']
 IMG_INSTRUCTORS = ['gym-instructor-1.jpg', 'gym-instructor-2.jpg', 'gym-instructor-3.jpg', 'gym-instructor-4.jpeg']
-MY_EMAIL = 'bagindagym2022@gmail.com'
-MY_PASSWORD = 'tpjctizchkgzeclk'
+MY_EMAIL = ''
+MY_PASSWORD = ''
 
 
 def custom_template(params: dict, img: list, delay):
